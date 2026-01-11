@@ -164,34 +164,6 @@ response = client.chat.completions.create(
    ```
 
 2. **Create a `.gitignore` file** (already included in this repo):
-   ```
-   # Python
-   __pycache__/
-   *.py[cod]
-   *$py.class
-   *.so
-   .Python
-   venv/
-   env/
-   ENV/
-   
-   # Environment variables
-   .env
-   .env.local
-   
-   # IDE
-   .vscode/
-   .idea/
-   *.swp
-   *.swo
-   
-   # OS
-   .DS_Store
-   Thumbs.db
-   
-   # Streamlit
-   .streamlit/secrets.toml
-   ```
 
 3. **Add all files**:
    ```bash
