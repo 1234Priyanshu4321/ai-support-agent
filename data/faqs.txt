@@ -12,3 +12,56 @@ Cash on delivery is not supported.
 
 Refunds:
 Refunds are processed within 5 business days after return approval.
+
+Order Cancellation:
+Orders can be cancelled within 1 hour of placing them.
+After 1 hour, cancellation is not guaranteed as the order may already be packed.
+To cancel, go to My Orders and click Cancel Order.
+
+Damaged or Defective Items:
+If you receive a damaged or defective item, contact support within 48 hours of delivery.
+We will arrange a free replacement or full refund at your choice.
+Attach photos of the damage when contacting support.
+
+Delivery Tracking:
+Once your order is shipped, you will receive a tracking link via email and SMS.
+Tracking updates every 4 to 6 hours.
+If tracking is not updating for more than 24 hours, contact support.
+
+Exchange Policy:
+Exchanges are allowed within 7 days of delivery for size or colour issues.
+The item must be unused and in original packaging.
+Exchange shipping is free for the first request.
+
+Promo Codes and Discounts:
+Only one promo code can be applied per order.
+Promo codes cannot be applied after an order is placed.
+Expired promo codes cannot be reactivated.
+
+Account and Login Issues:
+If you cannot log in, use the Forgot Password option on the login page.
+For account lockouts after 5 failed attempts, wait 30 minutes or contact support.
+To update your email or phone number, go to Account Settings.
+
+COD (Cash on Delivery):
+We do not support cash on delivery at this time.
+All payments must be made online at checkout.
+
+Late Delivery:
+If your order has not arrived by the estimated delivery date, wait one additional business day.
+If still not delivered, contact support with your order ID for a status update.
+Compensation for late delivery is handled on a case by case basis.
+
+Invoice and GST:
+GST invoices are generated automatically for all orders.
+Download your invoice from My Orders > Order Details > Download Invoice.
+For B2B GST claims, enter your GSTIN at checkout.
+
+Multiple Items in One Order:
+Items in the same order may ship separately if they are from different warehouses.
+Each shipment will have its own tracking link.
+
+Wallet and Store Credits:
+Store credits are applied automatically at checkout if available.
+Credits expire 6 months from the date of issue.
+Credits cannot be transferred to another account or converted to cash.

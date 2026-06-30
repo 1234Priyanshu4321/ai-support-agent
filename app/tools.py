@@ -15,7 +15,47 @@ ORDERS_DB: Dict[str, Dict[str, str]] = {
     "ORD-1003": {
         "status": "Delivered",
         "estimated_delivery": "2025-09-28"
-    }
+    },
+    "ORD-1004": {
+        "status": "Out for Delivery",
+        "estimated_delivery": "2025-10-05"
+    },
+    "ORD-1005": {
+        "status": "Cancelled",
+        "estimated_delivery": "N/A"
+    },
+    "ORD-1006": {
+        "status": "Returned",
+        "estimated_delivery": "N/A"
+    },
+    "ORD-1007": {
+        "status": "Processing",
+        "estimated_delivery": "2025-10-06"
+    },
+    "ORD-1008": {
+        "status": "Shipped",
+        "estimated_delivery": "2025-10-07"
+    },
+    "ORD-1009": {
+        "status": "Delivered",
+        "estimated_delivery": "2025-09-30"
+    },
+    "ORD-1010": {
+        "status": "Out for Delivery",
+        "estimated_delivery": "2025-10-05"
+    },
+    "ORD-1011": {
+        "status": "Delayed",
+        "estimated_delivery": "2025-10-09"
+    },
+    "ORD-1012": {
+        "status": "Refund Initiated",
+        "estimated_delivery": "N/A"
+    },
+    "ORD-1013": {
+        "status": "Shipped",
+        "estimated_delivery": "2025-10-08"
+    },
 }
 
 
