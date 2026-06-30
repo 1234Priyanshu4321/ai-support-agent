@@ -1,8 +1,8 @@
 import streamlit as st
 import uuid
+import requests
 from datetime import datetime
-from app.agent import run_agent
-from app.memory import add_to_memory
+API_BASE = "http://localhost:8000"
 st.set_page_config(
     page_title="AI Support Agent",
     page_icon="🤖",
@@ -87,15 +87,13 @@ if user_input:
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
-                reply = run_agent(st.session_state.session_id, user_input)
-                add_to_memory(
-                    st.session_state.session_id,
-                    {"role": "user", "content": user_input}
-                    )
-                add_to_memory(
-                    st.session_state.session_id,
-                    {"role": "assistant", "content": reply}
-                    )
+                res = requests.post(
+                    f"{API_BASE}/agent/chat",
+                    json={"session_id": st.session_state.session_id, "message": user_input},
+                    timeout=30
+                )
+                res.raise_for_status()
+                reply = res.json()["reply"]
                 st.markdown(reply)
                 st.session_state.messages.append(
                     {"role": "assistant", "content": reply}

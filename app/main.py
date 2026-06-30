@@ -34,8 +34,8 @@ async def chat_endpoint(request: ChatRequest):
 
     reply = run_agent(session_id, message)
 
-    add_to_memory(session_id, f"User: {message}")
-    add_to_memory(session_id, f"Agent: {reply}")
+    add_to_memory(session_id, {"role": "user", "content": message})
+    add_to_memory(session_id, {"role": "assistant", "content": reply})
 
     return ChatResponse(
         reply=reply,
