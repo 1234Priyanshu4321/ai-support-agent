@@ -1,0 +1,47 @@
+name: Eval Gate
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run eval
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python -m eval.eval_runner --no-llm-judge
+
+      - name: Check thresholds
+        run: |
+          python - <<'PYEOF'
+          import json, sys
+          with open("eval/report.json") as f:
+              s = json.load(f)["summary"]
+          print(f"Routing accuracy: {s['routing_accuracy_pct']}%")
+          print(f"Hallucination rate: {s['hallucination_rate_pct']}%")
+          if s["routing_accuracy_pct"] < 90:
+              print("FAIL: routing accuracy below 90%")
+              sys.exit(1)
+          if s["hallucination_rate_pct"] > 10:
+              print("FAIL: hallucination rate above 10%")
+              sys.exit(1)
+          print("PASS")
+          PYEOF
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: eval/report.md
