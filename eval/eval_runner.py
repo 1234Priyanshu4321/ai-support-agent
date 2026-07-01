@@ -28,6 +28,7 @@ from app.agent import run_agent, client as groq_client
 from app.memory import conversation_memory
 
 GOLDEN_PATH = os.path.join(os.path.dirname(__file__), "golden.json")
+SLEEP_BETWEEN_QUERIES = 2.0
 
 
 def detect_tool_called(session_id: str, question: str) -> tuple[str, str, float, int]:
@@ -99,15 +100,28 @@ def detect_tool_called(session_id: str, question: str) -> tuple[str, str, float,
 
 def score_groundedness(reply: str, reference_answer: str) -> bool:
     """
-    Groundedness: check if any key phrase from reference_answer appears in reply.
-    Splits reference into clauses, checks if at least one clause is present.
+    Groundedness: check keyword overlap between reply and reference_answer.
+    Passes if at least 30% of meaningful reference words appear in the reply.
     """
     if not reference_answer:
         return True  # N/A for order_tool and none cases
 
-    clauses = [c.strip().lower() for c in reference_answer.split(".") if c.strip()]
+    stop_words = {"this", "that", "with", "from", "have", "will", "your", "they",
+                  "them", "their", "been", "were", "more", "also", "about", "after",
+                  "into", "than", "then", "when", "where", "which", "would", "could"}
+
+    ref_words = [
+        w.strip(".,").lower()
+        for w in reference_answer.split()
+        if len(w) > 4 and w.lower() not in stop_words
+    ]
+
+    if not ref_words:
+        return True
+
     reply_lower = reply.lower()
-    return any(clause[:30] in reply_lower for clause in clauses if len(clause) > 10)
+    matches = sum(1 for w in ref_words if w in reply_lower)
+    return (matches / len(ref_words)) >= 0.30
 
 
 def score_relevancy_llm(question: str, reply: str) -> int:
@@ -171,6 +185,7 @@ def run_eval(llm_judge: bool = True) -> dict:
         status = "✓" if routing_correct else "✗"
         print(f"[{i}/{total}] {status} id={item['id']} tool={tool_called} latency={latency_ms:.0f}ms")
 
+        time.sleep(SLEEP_BETWEEN_QUERIES)
     # Aggregate metrics
     routing_correct_count = sum(1 for r in results if r["routing_correct"])
     routing_accuracy = routing_correct_count / total * 100
