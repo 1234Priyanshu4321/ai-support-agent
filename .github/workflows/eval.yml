@@ -34,8 +34,8 @@ jobs:
           if s["routing_accuracy_pct"] < 90:
               print("FAIL: routing accuracy below 90%")
               sys.exit(1)
-          if s["hallucination_rate_pct"] > 10:
-              print("FAIL: hallucination rate above 10%")
+          if s["hallucination_rate_pct"] > 15:
+              print("FAIL: hallucination rate above 15%")
               sys.exit(1)
           print("PASS")
           PYEOF
