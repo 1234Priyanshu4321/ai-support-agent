@@ -14,6 +14,7 @@ Usage:
 
 import json
 import os
+import sqlite3
 import time
 import sys
 
@@ -25,10 +26,20 @@ load_dotenv()
 # Import agent internals — scorer runs in-process, no server needed
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.agent import run_agent, client as groq_client
-from app.memory import conversation_memory
 
 GOLDEN_PATH = os.path.join(os.path.dirname(__file__), "golden.json")
 SLEEP_BETWEEN_QUERIES = 2.0
+
+def _clear_session(session_id: str):
+    """Clear SQLite memory for this session so each eval question is independent."""
+    db_path = os.getenv("MEMORY_DB_PATH", "memory.db")
+    try:
+        con = sqlite3.connect(db_path)
+        con.execute("DELETE FROM memory WHERE session_id = ?", (session_id,))
+        con.commit()
+        con.close()
+    except Exception:
+        pass  # DB may not exist yet on first run
 
 
 def detect_tool_called(session_id: str, question: str) -> tuple[str, str, float, int]:
@@ -47,7 +58,7 @@ def detect_tool_called(session_id: str, question: str) -> tuple[str, str, float,
     without modifying agent.py.
     """
     # Clear memory for this session so each eval question is independent
-    conversation_memory.pop(session_id, None)
+    _clear_session(session_id)
 
     start = time.perf_counter()
 
